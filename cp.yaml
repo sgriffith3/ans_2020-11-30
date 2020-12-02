@@ -1,0 +1,9 @@
+---
+- name: Copy some files
+  hosts: planetexpress
+
+  tasks:
+  - name: copy an example file to the hosts
+    copy:
+      src: copy-me.md
+      dest: copy-me.md

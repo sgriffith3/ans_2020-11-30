@@ -1,0 +1,59 @@
+---
+- name: Learning to use lists and loops
+  hosts: localhost
+
+  vars:
+    pets:
+    - dog
+    - cat
+    - fish
+    cars:
+    - { style: minivan, color: white }
+    - { style: truck, color: blue }
+    - { style: coupe, color: gold }
+    myfiles:
+    - { src: nginx.conf.j2, dest: /etc/nginx/nginx.conf }
+    - { src: auth_keys, dest: /home/student/.ssh/authorized_keys }
+    - { src: ssh_conf, dest: /home/student/.ssh/config }
+    yourfiles:
+    - { src: your_nginx, dest: /etc/nginx/yournginx.conf }
+    - { src: your_auth, dest: /home/student/.ssh/your_authorized_keys }
+    - { src: your_ssh, dest: /home/student/.ssh/your_ssh_config }
+
+  tasks:
+  # Print out the values from a variable (list)
+  - name: Printing out pets
+    debug:
+      msg: "We have the pets: {{ pets }}" 
+
+  - name: Print out each pet
+    debug:
+      msg: "{{ item }}"
+    loop: "{{ pets }}"
+
+  - name: Print out each car
+    debug:
+      msg: "We have a {{ item.color }} {{ item.style }}."
+    loop: "{{ cars }}"
+
+  - name: Print out each file's source and dest
+    debug:
+      msg: "The file {{ item.src }} will be moved to {{ item.dest }}"
+    loop: "{{ myfiles }}"
+
+  - name: Print out myfiles and yourfiles source and dest
+    debug:
+      msg: "The file {{ item.src }} will be moved to {{ item.dest }}"
+    with_items: 
+    - "{{ myfiles }}"
+    - "{{ yourfiles }}"
+
+  - name: Using var instead of msg
+    debug:
+      var: myfiles
+
+  - name: Using msg instead of var
+    debug:
+      msg: "{{ myfiles }}"
+
+

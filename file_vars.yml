@@ -1,0 +1,23 @@
+---
+- name: Using vars_files
+  hosts: localhost
+ 
+  vars:
+    ips:
+    - "2.2.2.2"
+    - "3.3.3.3"
+    - "4.4.4.4"
+
+          #astros: "{{ lookup('url', 'http://api.open-notify.org/astros.json') }}" 
+
+  vars_files:
+  - ip_data.json
+
+  tasks:
+  - name: print out the IP addresses
+    debug:
+      msg: "{{ item }}"
+    loop: "{{ ips }}"
+
+    #- debug:
+    #  msg: "{{ astros }}"

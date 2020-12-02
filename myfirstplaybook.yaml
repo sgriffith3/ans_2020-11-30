@@ -1,0 +1,13 @@
+---
+- name: This is our first playbook
+  hosts: localhost
+  tasks:
+  - name: Using debug as our first in play module
+    debug:
+      msg: "Congrats! You have created your first playbook!"
+
+  - name: observe idempotency
+    file:
+      path: /home/student/ansible-dev/idempo.txt
+      state: absent
+     
