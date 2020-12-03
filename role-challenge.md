@@ -2,7 +2,7 @@
 
 Create a playbook that runs against the planetexpress hosts (excluding farnsworth) that does the following:
 
-- Uses pre-tasks to create a ~/nginx directory, and calls on a handler if this made a change (debug)
+- Uses pre_tasks to create a ~/nginx directory, and calls on a handler if this made a change (debug)
 - Uses roles (1) that 
     - copies a file into the ~/nginx directory
     - installs the apt package nginx

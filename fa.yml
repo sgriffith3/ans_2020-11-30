@@ -1,0 +1,29 @@
+- name: Role Challenge
+  hosts: planetexpress:!farnsworth
+
+  pre_tasks:
+  - name: Create an ~/nginx dir
+    file:
+      path: nginx
+      state: directory
+    notify:
+    - nginx_dir_made
+
+
+  roles:
+  - nginx_role_challenge
+
+  tasks:
+  - name: perform an ls on the home dir
+    command: ls
+
+  post_tasks:
+  - name: Remove the ~/nginx dir
+    file:
+      path: nginx
+      state: absent
+
+  handlers:
+  - name: nginx_dir_made
+    debug:
+      msg: The nginx dir was made!

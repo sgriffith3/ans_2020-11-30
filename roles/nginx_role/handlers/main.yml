@@ -1,0 +1,3 @@
+- name: nginx installed
+  debug:
+    msg: Nginx has been installed!

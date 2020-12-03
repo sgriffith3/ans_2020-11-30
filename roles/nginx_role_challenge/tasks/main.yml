@@ -1,0 +1,12 @@
+- name: copy the nginx.conf file
+  copy:
+    src: nginx.conf
+    dest: nginx/nginx.conf
+
+- name: install nginx
+  apt:
+    name: nginx
+    state: absent
+  become: True
+  notify:
+  - nginx_state_change

@@ -1,0 +1,12 @@
+- name: copy the nginx.conf file
+  copy:
+    src: nginx.conf
+    dest: nginx/nginx.conf
+
+- name: install nginx
+  package:
+    name: nginx
+    state: "{{ nginx_state }}"
+  become: True
+  notify:
+  - nginx installed

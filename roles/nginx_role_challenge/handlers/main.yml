@@ -1,0 +1,3 @@
+- name: nginx_state_change
+  debug:
+    msg: The state of nginx was changed (installed or uninstalled)
