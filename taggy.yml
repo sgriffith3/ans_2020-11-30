@@ -1,0 +1,45 @@
+- name: Learning to use tags in our playbooks 
+  hosts: localhost
+
+  vars_prompt:
+  - name: dogsname
+    prompt: What is your poochy's name?
+  - name: runlolly
+    prompt: Should we run task 2?
+    private: False
+  - name: dbpass
+    prompt: What is your Database Password?
+    private: True
+    confirm: True
+    encrypt: sha512_crypt
+
+  tasks:
+  - name: Run this task when executed normally
+    debug:
+      msg: This task runs when there are not tag constraints
+    tags:
+    - always
+
+  - name: Run this task when tag - firsttask is run
+    debug:
+      msg: "Display the dogs name: {{ dogsname }}"
+    tags:
+    - firsttask
+
+  - name: Run this task when tag - secondtask is run
+    debug:
+      msg: The secondtask tag is being called on
+    tags:
+    - never
+    - secondtask
+
+  - name: Run this task when the tag - lollipop is asked for
+    debug:
+      msg: lolly
+    tags:
+    - lollipop
+    when: runlolly | bool
+
+  - name: Final task
+    debug:
+      msg: "Your DB password is: {{ dbpass }}"

@@ -1,0 +1,43 @@
+---
+- name: Handling Errors
+  hosts: localhost
+
+  vars: 
+    important_thing_here: True
+
+  tasks:
+  - block:
+    - name: Learning about Block and Rescue
+      debug:
+        msg: Learning about Block and Rescue
+     
+    - fail:
+        msg: Our important thing was not here!
+      when: not important_thing_here | bool 
+  
+    - name: Post failure task
+      debug:
+        msg: This task is right after a failure
+
+    rescue:
+    - name: Save me!
+      debug:
+        msg: You have been rescued!
+
+    - name: put important thing in its place
+      debug:
+        msg: The important_thing is there now!
+
+    - fail:
+        msg: Our important thing was not here!
+      when: not important_thing_here | bool 
+
+    always:
+    - name: ALWAYS WORKS
+      debug:
+        msg: Always is awesome!
+
+  - name: The final task outside of the block
+    debug:
+      msg: FINAL TASK
+

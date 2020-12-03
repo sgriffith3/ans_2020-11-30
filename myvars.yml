@@ -1,0 +1,4 @@
+commands:
+- ls
+- echo $HOME $PWD > myfile.txt
+- cat myfile.txt

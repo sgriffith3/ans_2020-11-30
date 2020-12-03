@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <title>My Webpage</title>
+</head>
+<body>
+        <ul id="navigation">
+    {% for item in navigation %}
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+    {% endfor %}
+    </ul>
+    <h1>My Webpage</h1>
+    {{ ansible_date_time.date }}
+    {{ a_variable }}
+    <br>{{ a_variable }}
+    <br>{{ a_variable }}
+   
+    {% if grade > 89 %}
+    You passed with an A!
+    {% else %}
+    You did not get an A :( 
+    {% endif %}
+ 
+    {# a comment #}
+</body>
+</html>

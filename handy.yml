@@ -1,0 +1,35 @@
+---
+- name: Using handlers
+  hosts: planetexpress:!farnsworth
+
+  tasks:
+  - name: Install nginx
+    apt:
+      name: nginx
+    become: True 
+
+  - name: make sure the /etc/nginx dir exists
+    file:
+      path: /etc/nginx/
+      state: directory
+    become: True
+
+  - name: Copy a config file
+    copy:
+      src: nginx.conf
+      dest: /etc/nginx/nginx.conf
+    become: True
+    notify:
+    - "Restart nginx"
+
+  - name: Extra task (Not nginx related)
+    debug:
+      msg: something else goes here
+
+  handlers:
+  - name: Restart nginx
+    service: 
+      name: nginx 
+      state: restarted
+    become: True
+

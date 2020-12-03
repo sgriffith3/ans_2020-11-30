@@ -1,0 +1,10 @@
+- name: Learning to use roles
+  hosts: planetexpress:!farnsworth
+
+  roles:
+  - bootstrap_nginx
+
+  pre_tasks:
+  - name: Extra task (Not nginx related)
+    debug:
+      msg: something else goes here

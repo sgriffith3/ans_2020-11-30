@@ -1,0 +1,33 @@
+# Wednesday Morning Challenge
+#Create a playbook to run against the planetexpress hosts that does the following:
+- name: Wednesday Morning Challenge
+  hosts: planetexpress
+  #- uses the following vars_files named "myvars.yml"
+  vars_files:
+  - myvars.yml  
+  #    commands:
+  #    - ls
+  #    - echo $HOME $PWD > myfile.txt
+  #    - cat myfile.txt
+  tasks:
+  #- yum installs cowsay on any host with ansible_distribution == "CentOS"
+  - name: Install cowsay on CentOS machines
+    yum:
+      name: cowsay 
+      state: present
+    become: yes # run as sudo
+    when: ansible_distribution == "CentOS"
+
+  #- apt installs cowsay on any host with ansible_distribution == "Ubuntu"
+  - name: Install cowsay on Ubuntu machines
+    apt:
+      name: cowsay
+      state: present
+    become: yes # run as sudo
+    when: ansible_distribution == "Ubuntu"
+
+         
+  #- performs each of the commands from the "myvars.yml" file in a loop  
+  - name: loop through list of shell commands
+    shell: "{{ item }}"
+    loop: "{{ commands }}"

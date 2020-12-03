@@ -1,0 +1,25 @@
+- name: Learning to use Jinja2 for Templating
+  hosts: localhost
+
+  vars:
+    a_variable: "Poodles are Cool"
+    navigation:
+    - {href: "#about", caption: About Us }
+    - {href: "#contact", caption: Call Me }
+    - {href: "#home", caption: Home Page }
+    
+  tasks:
+  - name: Template in our index.html file
+    template:
+      src: index.html.j2
+      dest: index.html
+    vars:
+      grade: 29
+
+  - name: print out some jinja stuffz
+    debug:
+      msg: "{{ planet | lower }}"
+    vars:
+      planet: Luna Park
+
+
